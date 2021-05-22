@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grupollano.model.entityplay.BingoBoard;
+import com.grupollano.model.entityuser.Usuario;
 import com.grupollano.service.BingoBoardServicesImp;
+import com.grupollano.service.UsuarioServicesImp;
 
 
 /**
@@ -31,7 +33,8 @@ public class BingoBoardController {
 	@Autowired(required=true)
 	private BingoBoardServicesImp bingoBoardServices; 
 	
-
+	@Autowired(required=true)
+	private UsuarioServicesImp usuarioServices;
 	
 	@GetMapping(path="/bingo_board" , produces = MediaType.APPLICATION_JSON_VALUE)
 	public Page<BingoBoard> bingoBoard(@RequestParam(name="page", defaultValue = "0") int page) {
@@ -48,6 +51,13 @@ public class BingoBoardController {
 	
 		
 		return this.bingoBoardServices.findAll();
+	}
+	
+	@GetMapping(path="/usuarios" , produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Usuario> getUsuarios(@RequestParam(name="page", defaultValue = "0") int page) {
+	
+		
+		return this.usuarioServices.findAll();
 	}
 	
 

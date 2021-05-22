@@ -18,8 +18,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/bingo/v1/bingo_board")
-		.permitAll().antMatchers("/bingo_board")
+		http.authorizeRequests().antMatchers("/bingo/v1/bingo_board","/bingo/v1/usuarios")
+		.permitAll().antMatchers("/bingo_board","/usuarios")
 		.hasAnyRole("Admin").anyRequest()
 		.authenticated()
 		.and()

@@ -20,15 +20,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "userEntityManagerFactory", transactionManagerRef = "userTransactionManager", basePackages = {
-		"com.mitocode.repo.user" })
+@EnableJpaRepositories(entityManagerFactoryRef = "entityuserEntityManagerFactory", transactionManagerRef = "entityuserTransactionManager", basePackages = {
+		"com.grupollano.repo.entityuser" })
 public class PostgresUser {
 
 	@Autowired
 	private Environment env;
 	
-	@Bean(name = "userDataSource")
-	public DataSource userDatasource() {
+	@Bean(name = "entityuserDataSource")
+	public DataSource entityuserDatasource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUrl(env.getProperty("spring2.datasource.url"));
 		dataSource.setUsername(env.getProperty("spring.datasource.username"));
@@ -38,11 +38,11 @@ public class PostgresUser {
 		return dataSource;
 	}
 	
-	@Bean(name = "userEntityManagerFactory")
+	@Bean(name = "entityuserEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-		em.setDataSource(userDatasource());
-		em.setPackagesToScan("com.mitocode.model.user");
+		em.setDataSource(entityuserDatasource());
+		em.setPackagesToScan("com.grupollano.model.entityuser");
 		
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -58,7 +58,7 @@ public class PostgresUser {
 		
 	}
 	
-	@Bean(name = "userTransactionManager")
+	@Bean(name = "entityuserTransactionManager")
 	public PlatformTransactionManager transactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
 		transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
