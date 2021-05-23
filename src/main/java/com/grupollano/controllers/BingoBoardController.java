@@ -19,14 +19,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grupollano.model.entityplay.BingoBoard;
 import com.grupollano.model.entityuser.Usuario;
-import com.grupollano.repo.entityuser.IUsuarioDao;
 import com.grupollano.service.BingoBoardServicesImp;
 import com.grupollano.service.UsuarioServicesImp;
 
@@ -43,10 +41,17 @@ public class BingoBoardController {
 
 	@Autowired(required = true)
 	private BingoBoardServicesImp bingoBoardServices;
-	@Autowired
-	private UsuarioServicesImp usuarioServices;
 	
-	@PreAuthorize("hasAnyRole('Admin11','superusuario11')")
+
+	/**
+	 * Permite realizar la consulta de los bingos disponibles 
+	 * y retornando una paginacion segun la solicitud
+	 * @param page
+	 * @param authentication
+	 * @param request
+	 * @return an instance of java.lang.String
+	 */
+	@PreAuthorize("hasAnyRole('Admin','superusuario')")
 	@GetMapping(path = { "/bingo_board", "/" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Page<BingoBoard> bingoBoard(@RequestParam(name = "page", defaultValue = "0") int page,
 			Authentication authentication, HttpServletRequest request) {
@@ -54,19 +59,19 @@ public class BingoBoardController {
 		if (authentication != null) {
 			System.out.println("usuario controller ===> " + authentication.getName());
 		}
-		
-		if(hasRole("Admin")) {
+
+		if (hasRole("Admin")) {
 			System.out.println("Accedio");
-		}
-		else {
+		} else {
 			System.out.println("no tiene Acceso ");
 		}
-		
-		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request,"");
-		if(securityContext.isUserInRole("Admin")) {
+
+		SecurityContextHolderAwareRequestWrapper securityContext = new SecurityContextHolderAwareRequestWrapper(request,
+				"");
+		if (securityContext.isUserInRole("Admin")) {
 
 			System.out.println("SecurityContextHolderAwareRequestWrapper Accedio");
-		}else {
+		} else {
 
 			System.out.println("SecurityContextHolderAwareRequestWrapper NO Accedio");
 		}
@@ -79,16 +84,18 @@ public class BingoBoardController {
 		return bindBoardRequest;
 	}
 
+	/**
+	 * Devuelve todos los bingos disponibles en el sistema
+	 * 
+	 * @return an instance of java.lang.String
+	 */
 	@GetMapping(path = "/bingo", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<BingoBoard> bingoBoard2(@RequestParam(name = "page", defaultValue = "0") int page) {
+	public List<BingoBoard> bingoBoard2() {
 
 		return this.bingoBoardServices.findAll();
 	}
 
-	@GetMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Usuario> bingoBoard2() {
-		return this.usuarioServices.findAll();
-	}
+	
 
 	public boolean hasRole(String role) {
 		SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -105,13 +112,10 @@ public class BingoBoardController {
 
 		Collection<? extends GrantedAuthority> autorice = authentication.getAuthorities();
 		return autorice.contains(new SimpleGrantedAuthority(role));
-		/*for (GrantedAuthority authority : autorice) {
-			if(role.equals(authority.getAuthority())) {
-				return true;
-			}
-		}
-		return false;
-		*/
+		/*
+		 * for (GrantedAuthority authority : autorice) {
+		 * if(role.equals(authority.getAuthority())) { return true; } } return false;
+		 */
 	}
 
 }

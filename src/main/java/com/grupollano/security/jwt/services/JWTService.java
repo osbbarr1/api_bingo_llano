@@ -28,7 +28,7 @@ public interface JWTService {
 	public boolean validate(String token);
 
 	/**
-	 * Obtener los Claims
+	 * Obtener los Claims para validar la firma
 	 * 
 	 * @param token
 	 * @return
