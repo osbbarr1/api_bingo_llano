@@ -1,4 +1,4 @@
-package com.grupollano.model.entityplay;
+package com.grupollano.model.entityuser;
 
 import java.io.Serializable;
 
@@ -7,21 +7,18 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
 @Entity
-@Table(name = "bingo_param_board", schema = "public")
-public class BingoBoard implements Serializable {
+@Table(name="bingo_rol", schema = "public")
+public class BingoRol implements Serializable{
 
 	@Id
-	@Column(name = "board_id")
+	@Column(name="rol_id")
 	private Long id;
-
-	@Column(name = "board_numbers")
-	@Type(type = "com.grupollano.util.GenericUserTypeIntegerArray")
-	private Integer[] boardNumbers;
-
-	@Column(name = "status")
+	
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="status")
 	private String status;
 
 	public Long getId() {
@@ -32,12 +29,12 @@ public class BingoBoard implements Serializable {
 		this.id = id;
 	}
 
-	public Integer[] getBoardNumbers() {
-		return boardNumbers;
+	public String getName() {
+		return name;
 	}
 
-	public void setBoardNumbers(Integer[] boardNumbers) {
-		this.boardNumbers = boardNumbers;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getStatus() {
@@ -47,10 +44,10 @@ public class BingoBoard implements Serializable {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	private static final long serialVersionUID = 1L;
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
 }

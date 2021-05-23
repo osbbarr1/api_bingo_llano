@@ -15,11 +15,20 @@ public class UsuarioServicesImp implements IUsuarioServices{
 	
 	@Autowired
 	private IUsuarioDao usuarioDao;
+	
+	@Autowired
+	private IUsuarioServices usuarioService;
 
 	@Override
 	public List<Usuario> findAll() {
 		// TODO Auto-generated method stub
 		return (List<Usuario>) usuarioDao.findAll();
 	}
+
+	@Override
+	public void save(Usuario usuario) {
+		usuarioService.save(usuario);
+	}
+
 
 }

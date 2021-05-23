@@ -1,17 +1,21 @@
 package com.grupollano.model.entityuser;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "bingo_users", schema = "public")
-public class Usuario {
+public class Usuario implements Serializable {
 
 	@Id
 	@Column(name = "user_id")
@@ -29,8 +33,9 @@ public class Usuario {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "rol_id")
-	private Long rolId;
+	@ManyToOne
+	@JoinColumn(name = "rol_id", referencedColumnName = "rol_id", nullable = true)
+	private BingoRol rol_id;
 
 	@Column(name = "status")
 	private String status;
@@ -39,8 +44,15 @@ public class Usuario {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 
+	@PrePersist
+	public void prePersist() {
+		createdAt = new Date();
+	}
+
 	@Column(name = "created_by")
 	private String createdBy;
+
+
 
 	private static final long serialVersionUID = 1L;
 
@@ -84,12 +96,12 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public Long getRolId() {
-		return rolId;
+	public BingoRol getRol_id() {
+		return rol_id;
 	}
 
-	public void setRolId(Long rolId) {
-		this.rolId = rolId;
+	public void setRol_id(BingoRol rol_id) {
+		this.rol_id = rol_id;
 	}
 
 	public String getStatus() {
