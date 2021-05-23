@@ -1,5 +1,6 @@
 package com.grupollano.controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -24,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grupollano.model.entityplay.BingoBoard;
-import com.grupollano.model.entityuser.Usuario;
 import com.grupollano.service.BingoBoardServicesImp;
-import com.grupollano.service.UsuarioServicesImp;
 
 /**
  * 
@@ -89,9 +88,14 @@ public class BingoBoardController {
 	 * 
 	 * @return an instance of java.lang.String
 	 */
-	@GetMapping(path = "/bingo", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/bingo_winner", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<BingoBoard> bingoBoard2() {
-
+		Integer[] numeros= {1,2,56,3,12,33,58,75,22,70,19,5,47,66,61,27,10};
+		List<BingoBoard> winner = new ArrayList<>();
+		winner = this.bingoBoardServices.findAll();
+		for (BingoBoard bingoBoard : winner) {
+			
+		}
 		return this.bingoBoardServices.findAll();
 	}
 

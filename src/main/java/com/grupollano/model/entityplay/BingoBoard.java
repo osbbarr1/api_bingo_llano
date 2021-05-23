@@ -13,6 +13,16 @@ import org.hibernate.annotations.Type;
 @Table(name = "bingo_param_board", schema = "public")
 public class BingoBoard implements Serializable {
 
+	
+	
+	public BingoBoard(Integer[] boardNumbers) {
+		this.boardNumbers = boardNumbers;
+	}
+
+	public BingoBoard() {
+
+	}
+
 	@Id
 	@Column(name = "board_id")
 	private Long id;

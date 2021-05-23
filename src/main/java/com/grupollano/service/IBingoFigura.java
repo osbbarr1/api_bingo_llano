@@ -7,5 +7,5 @@ import com.grupollano.model.entityplay.BingoFigura;
 public interface IBingoFigura {
 
 	public List<BingoFigura> findAll();
-	public void save (BingoFigura bingoFigura);
+	public BingoFigura save (BingoFigura bingoFigura);
 }

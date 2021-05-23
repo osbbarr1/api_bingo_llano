@@ -20,8 +20,8 @@ public class BingoFiguraServicesImp implements IBingoFigura{
 	}
 
 	@Override
-	public void save(BingoFigura bingoFigura) {
-		// TODO Auto-generated method stub
+	public BingoFigura save(BingoFigura bingoFigura) {
+		return bingoFiguraDao.save(bingoFigura);
 		
 	}
 

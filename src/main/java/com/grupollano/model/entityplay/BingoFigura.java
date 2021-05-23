@@ -49,6 +49,23 @@ public class BingoFigura implements Serializable {
 	@Column(name = "used")
 	private boolean used;
 
+	
+	
+	public BingoFigura(Long id, Long groupFigureId, String figureName, Boolean[] positionsWinner, String status,
+			Long createdBy, boolean used) {
+		this.id = id;
+		this.groupFigureId = groupFigureId;
+		this.figureName = figureName;
+		this.positionsWinner = positionsWinner;
+		this.status = status;
+		this.createdBy = createdBy;
+		this.used = used;
+	}
+
+	public BingoFigura() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Long getId() {
 		return id;
 	}
